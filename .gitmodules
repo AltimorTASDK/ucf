@@ -1,0 +1,3 @@
+[submodule "cpp2gecko"]
+	path = cpp2gecko
+	url = ./cpp2gecko
