@@ -3,16 +3,12 @@
 #include "hsd/pad.h"
 #include "melee/player.h"
 
-template<int offset>
+template<int offset> requires (offset <= 0 && offset >= -PAD_QNUM + 1)
 inline const PADStatus &get_input(int port)
 {
-	// Modulo the offset at compile time
-	constexpr auto mod_offset = (((offset - 1) % PAD_QNUM) + PAD_QNUM) % PAD_QNUM;
-
-	// Only need a compare at runtime
-	auto index = HSD_PadLibData.qread + mod_offset;
-	if (index >= PAD_QNUM)
-		index -= PAD_QNUM;
+	auto index = HSD_PadLibData.qread + offset - 1;
+	if (index < 0)
+		index += PAD_QNUM;
 
 	return HSD_PadLibData.queue[index].stat[port];
 }

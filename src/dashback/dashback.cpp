@@ -12,18 +12,14 @@ static void gecko_entry()
 	register float new_direction asm("32");
 	player->direction = new_direction;
 
-	if (Player_IsCPU(player))
+	if (player->is_secondary_char)
 		return;
 
 	// Must be tilt turn f2
 	if (player->animation_frame != FP(2.f))
 		return;
 
-	if (player->as_data.Turn.is_smash_turn)
-		return;
-
 	// Must satisfy vanilla xsmash conditions
-	// UCF v0.74+ doesn't check direction and it allows a UCF only ICs desync
 	if (player->input.stick.x * new_direction < plco->x_smash_threshold)
 		return;
 
@@ -42,13 +38,9 @@ static void gecko_entry()
 		return;
 
 	auto *nana = nana_gobj->get<Player>();
-	nana->cpu.popo_data_write->direction = new_direction;
-	if (new_direction > FP(0.f))
-		nana->cpu.popo_data_write->stick.x = 127;
-	else
-		nana->cpu.popo_data_write->stick.x = -128;
-
-	nana->cpu.popo_data_write->stick.y = 0;
+	nana->cpu.popo_data_write->direction = player->direction;
+	// -128 or 127 (gcc won't do this automatically on -Os)
+	nana->cpu.popo_data_write->stick.x = (s8)(127 + player->is_facing_left());
 }
 
 GAME_FUNC void Interrupt_AS_Turn(HSD_GObj *gobj);

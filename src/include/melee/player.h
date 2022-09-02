@@ -2,6 +2,7 @@
 
 #include "hsd/gobj.h"
 #include "util/vector.h"
+#include <cmath>
 #include <gctypes.h>
 
 constexpr auto NANA_BUFFER = 30;
@@ -122,7 +123,29 @@ struct Player {
 	f32 animation_frame;
 	char pad0898[0x1A88 - 0x898];
 	CPUData cpu;
-	char pad1FE0[0x2340 - 0x1FE0];
+	char pad1FE0[0x221F - 0x1FE0];
+	struct {
+#ifdef PAL
+		u8 flags8_80 : 1;
+		u8 flags8_40 : 1;
+		u8 flags8_20 : 1;
+		u8 flags8_10 : 1;
+		u8 flags8_08 : 1;
+		u8 no_update : 1;
+		u8 is_secondary_char : 1;
+		u8 flags8_01 : 1;
+#else
+		u8 flags8_80 : 1;
+		u8 flags8_40 : 1;
+		u8 flags8_20 : 1;
+		u8 no_update : 1;
+		u8 is_secondary_char : 1;
+		u8 flags8_04 : 1;
+		u8 flags8_02 : 1;
+		u8 flags8_01 : 1;
+#endif
+	};
+	char pad2220[0x2340 - 0x2220];
 	union {
 		char raw[0xAC];
 		struct {
@@ -136,6 +159,12 @@ struct Player {
 			u32 buffered_buttons;
 		} Turn;
 	} as_data;
+
+	bool is_facing_left() const
+	{
+		// Enable optimizations by disregarding negative zero
+		return std::signbit(direction);
+	}
 };
 
 static_assert(sizeof(Player) == 0x23EC);

@@ -69,4 +69,4 @@ struct PlayerConstants {
 	f32 ledge_roll_cstick_threshold;
 };
 
-GAME_GLOBAL PlayerConstants *plco;
+GAME_SDATA PlayerConstants *plco;
