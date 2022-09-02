@@ -12,6 +12,7 @@ static void gecko_entry()
 	register float new_direction asm("32");
 	player->direction = new_direction;
 
+	// No Nana
 	if (player->is_secondary_char)
 		return;
 
