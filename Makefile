@@ -1,7 +1,7 @@
 export MAPFILE := GALE01r2.map
 export INCLUDE := include
 
-CODES := dashback
+CODES := $(shell find src -maxdepth 1 -type d | sed -rn 's/src\/(.*)/\1/p')
 
 ucf: $(CODES)
 
