@@ -17,7 +17,7 @@ static void gecko_entry()
 		return;
 
 	// Must be tilt turn f2
-	if (player->animation_frame != FP(2.f))
+	if (!FP_EQUAL(player->animation_frame, 2.f))
 		return;
 
 	// Must satisfy vanilla xsmash conditions
@@ -46,4 +46,4 @@ static void gecko_entry()
 
 GAME_FUNC void Interrupt_AS_Turn(HSD_GObj *gobj);
 
-GECKO_INIT(Interrupt_AS_Turn+0x4C, gecko_entry, "r29")
+GECKO_INIT(Interrupt_AS_Turn+0x4C, gecko_entry)
