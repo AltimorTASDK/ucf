@@ -1,5 +1,5 @@
 export MAPFILE := GALE01r2.map
-export INCLUDE := src/include
+export INCLUDE := include
 
 CODES := dashback
 
