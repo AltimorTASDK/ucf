@@ -7,7 +7,7 @@ register HSD_GObj *gobj asm("r31");
 
 static bool check_sdrop_extension(const vec2 &stick)
 {
-	// Must be a rim coord
+	// Must be -6125 or below along the rim, adjusted to prevent an ICs desync
 	return stick.y <= FP(popo_to_nana(-.6125f)) && is_rim_coord(stick);
 }
 
