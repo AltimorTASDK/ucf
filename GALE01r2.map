@@ -2396,7 +2396,7 @@
 80099efc 00000020 80099efc 0 Ab_AS_?_ClankRecoil_5
 80099f1c 00000080 80099f1c 0 Ab_Interrupt_CheckForLegitimateReflectorPlatformDrop
 80099f9c 000000e4 80099f9c 0 Ab_Interrupt_DropOffPlatform?
-8009a080 000000b4 8009a080 0 Interrupt_Pass
+8009a080 000000b4 8009a080 0 Interrupt_Pass_OoS
 8009a134 00000050 8009a134 0 Ab_Interrupt_Firefox&bird_PassThroughDownwardsCheck
 8009a184 000000a4 8009a184 0 Ab_Interrupt_ReflectorPlatformDrop
 8009a228 00000080 8009a228 0 AS_244_Pass
