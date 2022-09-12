@@ -2,7 +2,7 @@
 
 #include <gctypes.h>
 
-struct PlayerConstants {
+struct PlCo {
 	f32 deadzone_x;
 	f32 deadzone_y;
 	f32 stick_hold_threshold_x;
@@ -72,4 +72,4 @@ struct PlayerConstants {
 	f32 ledge_roll_cstick_threshold;
 };
 
-GAME_SDATA PlayerConstants *plco;
+GAME_SDATA PlCo *plco;
