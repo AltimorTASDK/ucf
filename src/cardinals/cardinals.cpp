@@ -1,7 +1,9 @@
 #include "hsd/pad.h"
 
+GECKO_NO_STACK_FRAME();
+
 register int pad_index asm("r21");
-register PADStatus *status asm("r31");
+register PADStatus *volatile status asm("r31");
 
 [[gnu::noinline]] static void apply_cardinals(vec2c *stick)
 {
@@ -25,7 +27,6 @@ static void gecko_entry()
 
 	// Overwritten instruction
 	pad_index++;
-	FORCE_WRITE(pad_index);
 }
 
 GAME_FUNC void PADRead(PADStatus *status);
