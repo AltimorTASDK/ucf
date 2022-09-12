@@ -1,6 +1,7 @@
 #pragma once
 
 #include "hsd/gobj.h"
+#include "melee/collision.h"
 #include "util/vector.h"
 #include <cmath>
 #include <gctypes.h>
@@ -119,9 +120,14 @@ struct Player {
 	u8 port;
 	char pad0619[0x620 - 0x619];
 	PlayerInput input;
-	char pad068C[0x894 - 0x68C];
+	char pad068C[0x6F0 - 0x68C];
+	Physics phys;
+	s32 ecb_timer;
+	void *camera_data;
 	f32 animation_frame;
-	char pad0898[0x1A88 - 0x898];
+	f32 subaction_speed;
+	f32 animation_speed;
+	char pad08A0[0x1A88 - 0x8A0];
 	CPUData cpu;
 	char pad1FE0[0x221F - 0x1FE0];
 	struct {

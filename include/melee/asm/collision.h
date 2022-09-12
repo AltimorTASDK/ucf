@@ -9,6 +9,7 @@
  * Structs
  */
 .set Physics.floor.line, 0x14C
+.set Physics.floor.type, 0x150
 
 .set CollisionLine.desc, 0x00
 

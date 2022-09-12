@@ -13,3 +13,4 @@
 .set Player.input.stick_y_hold_time, 0x671
 .set Player.phys,                    0x6F0
 .set Player.phys.floor.line,         Player.phys + Physics.floor.line
+.set Player.phys.floor.type,         Player.phys + Physics.floor.type
