@@ -9,7 +9,7 @@ register Player *player asm("r31");
 static void gecko_entry()
 {
 	// Overwritten instruction
-	register float new_direction asm("32");
+	register float new_direction asm(/*f0*/"32");
 	player->direction = new_direction;
 
 	// No Nana
