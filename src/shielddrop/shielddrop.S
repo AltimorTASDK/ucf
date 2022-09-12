@@ -78,17 +78,11 @@ start:
         fcmpo   cr0, f1, f0
         ble     end
 
-        // Must have valid ground (20XX save states don't restore this)
+        // Must be on a platform
         lwz     r0, Player.phys.floor.line(gpr.player)
         cmpwi   r0, -1
         beq     end
-
-        // Must be on a platform
-        // groundCollLine[index].desc->type & LineType_Platform
-        lwz     gpr.tmp, groundCollLine-R13_BASE(r13)
-        rlwinm  r0, r0, 3, 0, 28
-        lwzx    gpr.tmp, gpr.tmp, r0
-        lhz     r0, CollisionLineDesc.type(gpr.tmp)
+        lwz     r0, Player.phys.floor.type(gpr.player)
         rlwinm. r0, r0, 0, LineType_Platform
         beq     end
 
