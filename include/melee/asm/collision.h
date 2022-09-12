@@ -12,4 +12,4 @@
 
 .set CollisionLine.desc, 0x00
 
-.set CollisionLineDesc.attributes, 0x0E
+.set CollisionLineDesc.type, 0x0E

@@ -84,11 +84,11 @@ start:
         beq     end
 
         // Must be on a platform
-        // groundCollLine[index].desc->attributes & SurfaceType_Platform
+        // groundCollLine[index].desc->type & SurfaceType_Platform
         lwz     gpr.tmp, groundCollLine-R13_BASE(r13)
         rlwinm  r0, r0, 3, 0, 28
         lwzx    gpr.tmp, gpr.tmp, r0
-        lhz     r0, CollisionLineDesc.attributes(gpr.tmp)
+        lhz     r0, CollisionLineDesc.type(gpr.tmp)
         rlwinm. r0, r0, 0, SurfaceType_Platform
         beq     end
 
