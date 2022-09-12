@@ -94,6 +94,7 @@ start:
 
         // Rim coord check
         // (abs(x)+1)^2 + (abs(y)+1)^2 > 80^2
+        // f1 is already set to stick y
         bl      convert_coord_for_rim_check
         mullw   r0, gpr.tmp, gpr.tmp
         lfs     f1, Player.input.stick.x(gpr.player)
