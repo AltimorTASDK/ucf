@@ -25,4 +25,4 @@ static void gecko_entry()
 
 GAME_FUNC bool Interrupt_Pass_OoS(HSD_GObj *gobj);
 
-GECKO_INIT_PIC(Interrupt_Pass_OoS+0x80, gecko_entry, "r30")
+GECKO_INIT_PIC(Interrupt_Pass_OoS+0x80, gecko_entry, "r30");

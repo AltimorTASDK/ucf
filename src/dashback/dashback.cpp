@@ -46,4 +46,4 @@ static void gecko_entry()
 
 GAME_FUNC void Interrupt_AS_Turn(HSD_GObj *gobj);
 
-GECKO_INIT(Interrupt_AS_Turn+0x4C, gecko_entry)
+GECKO_INIT(Interrupt_AS_Turn+0x4C, gecko_entry);

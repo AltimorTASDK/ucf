@@ -29,6 +29,6 @@ static void gecko_entry()
 	pad_index++;
 }
 
-GAME_FUNC void PADRead(PADStatus *status);
+GAME_FUNC u32 PADRead(PADStatus *status);
 
-GECKO_INIT(PADRead+0x378, gecko_entry)
+GECKO_INIT(PADRead+0x378, gecko_entry);
