@@ -3,7 +3,7 @@
 /*
  * Constants
  */
-.set SurfaceType_Platform, 0x100
+.set LineType_Platform, 0x100
 
 /*
  * Structs
