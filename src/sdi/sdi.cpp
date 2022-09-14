@@ -4,12 +4,15 @@
 #include "ucf/sdi.h"
 #include "util/powerpc.h"
 
-static bool check_f2_sdi(const Player *player)
+static bool check_f2_sdi(const Player *player, const PlCo *plco)
 {
+	// Check previous input to disallow buffering
+	const auto magnitude_sqr = player->input.last_stick.length_sqr();
+	const auto threshold_sqr = plco->sdi_stick_threshold * plco->sdi_stick_threshold;
 	// Check that the player left the deadzone on the previous frame,
 	// attempting a vanilla f2 SDI input but failing due to unlucky polling
-	return player->input.true_stick_x_hold_time < 2 ||
-	       player->input.true_stick_y_hold_time < 2;
+	return magnitude_sqr < threshold_sqr && (player->input.true_stick_x_hold_time < 2 ||
+	                                         player->input.true_stick_y_hold_time < 2);
 }
 
 static void gecko_entry()
@@ -25,12 +28,9 @@ static void gecko_entry()
 	         "blt    %l[end]"
 	         : : : : end);
 
-	if (!player->custom_as_data<sdi_data>()->allow_f2_sdi)
-		return;
-
 	// This doesn't actually check for frame 2, but there's no need to as this
 	// will fail whenever would the vanilla check would on any frame after
-	if (check_f2_sdi(player))
+	if (check_f2_sdi(player, plco))
 		asm("crset lt");
 	else
 		asm("crclr lt");
