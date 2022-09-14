@@ -171,6 +171,19 @@ struct Player {
 		// Enable optimizations by disregarding negative zero
 		return std::signbit(direction);
 	}
+
+	// Place new data at end of AS data space
+	template<typename T>
+	T *custom_as_data()
+	{
+		return (T*)&as_data.raw[sizeof(as_data.raw) - sizeof(T)];
+	}
+
+	template<typename T>
+	const T *custom_as_data() const
+	{
+		return (T*)&as_data.raw[sizeof(as_data.raw) - sizeof(T)];
+	}
 };
 
 static_assert(sizeof(Player) == 0x23EC);
