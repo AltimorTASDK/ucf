@@ -31,7 +31,6 @@ static void gecko_entry()
 		asm("crset eq");
 	else
 		asm("crclr eq");
-
 end:
 	return;
 }
