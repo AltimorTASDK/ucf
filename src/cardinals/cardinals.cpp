@@ -1,7 +1,5 @@
 #include "hsd/pad.h"
 
-GECKO_NO_STACK_FRAME();
-
 register int pad_index asm("r21");
 register PADStatus *volatile status asm("r31");
 
@@ -31,4 +29,5 @@ static void gecko_entry()
 
 GAME_FUNC u32 PADRead(PADStatus *status);
 
+GECKO_NO_STACK_FRAME();
 GECKO_INIT(PADRead+0x378, gecko_entry);
