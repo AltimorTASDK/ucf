@@ -1,7 +1,6 @@
 #include "hsd/gobj.h"
 #include "melee/constants.h"
 #include "melee/player.h"
-#include "ucf/sdi.h"
 #include "util/powerpc.h"
 
 static bool check_f2_sdi(const Player *player, const PlCo *plco)
