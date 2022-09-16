@@ -2,6 +2,7 @@
 #include "melee/constants.h"
 #include "melee/player.h"
 #include "ucf/pad_buffer.h"
+#include "util/powerpc.h"
 
 static bool check_f2_sdi(const Player *player, const PlCo *plco)
 {
@@ -31,10 +32,13 @@ static void gecko_entry()
 
 	// This doesn't actually check for frame 2, but there's no need to as this
 	// will fail whenever would the vanilla check would on any frame after
+	u32 cr0;
 	if (check_f2_sdi(player, plco))
-		asm("crset lt");
+		cr0 = ppc::cr<0>{.lt = 1, .gt = 0, .eq = 0}.raw;
 	else
-		asm("crclr lt");
+		cr0 = ppc::cr<0>{.lt = 0, .gt = 1, .eq = 1}.raw;
+
+	asm("mtocrf 0b10000000, %0" : : "r"(cr0));
 end:
 	return;
 }
