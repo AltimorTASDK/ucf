@@ -54,11 +54,5 @@ inline bool check_ucf_sdi(const Player *player)
 	const auto &current_input = get_ucf_pad_buffer<0>(player->port);
 	const auto delta_x = current_input.stick.x - prev_input.stick.x;
 	const auto delta_y = current_input.stick.y - prev_input.stick.y;
-	const auto delta_x_sqr = delta_x * delta_x;
-	const auto delta_y_sqr = delta_y * delta_y;
-
-	// Check that the player left the deadzone on the previous frame,
-	// attempting a vanilla f2 SDI input but failing due to unlucky polling
-	return (player->input.true_stick_x_hold_time < 2 && delta_x_sqr > UCF_TILT_THRESHOLD_SQR) ||
-	       (player->input.true_stick_y_hold_time < 2 && delta_y_sqr > UCF_TILT_THRESHOLD_SQR);
+	return delta_x * delta_x + delta_y * delta_y > UCF_TILT_THRESHOLD_SQR;
 }
