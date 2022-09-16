@@ -32,11 +32,9 @@ static bool attempt_doraki(Player *player)
 	const auto position = player->position;
 	const auto collide = player->phys.collide;
 	const auto ecb = player->phys.ecb;
-	const auto ecb_flags = player->phys.ecb_flags;
 	player->position = as_data->doraki_position;
 	player->phys.collide = player->phys.last_collide;
 	player->phys.ecb = player->phys.last_ecb;
-	player->phys.ecb_flags = as_data->doraki_ecb_flags;
 
 	if (Interrupt_Walljump(player->gobj))
 		return true;
@@ -45,7 +43,6 @@ static bool attempt_doraki(Player *player)
 	player->position = position;
 	player->phys.collide = collide;
 	player->phys.ecb = ecb;
-	player->phys.ecb_flags = ecb_flags;
 	return false;
 }
 
