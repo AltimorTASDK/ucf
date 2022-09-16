@@ -116,7 +116,29 @@ struct Player {
 	u32 action_state;
 	char pad0009[0x2C - 0x14];
 	f32 direction;
-	char pad0030[0x618 - 0x30];
+	f32 model_direction;
+	f32 initial_scale;
+	f32 scale;
+	f32 z_scale;
+	char pad0040[0x74 - 0x40];
+	vec3 move_vel_delta;
+	vec3 move_vel;
+	vec3 knockback_vel;
+	vec3 pushback_vel;
+	vec3 move_vel_lerp;
+	vec3 position;
+	vec3 last_position;
+	vec3 delta_vel;
+	vec3 kb_vel_accumulator;
+	u32 airborne;
+	f32 ground_vel_delta;
+	f32 ground_accel;
+	f32 ground_vel;
+	f32 ground_knockback_vel;
+	f32 ground_pushback_vel;
+	f32 jostle_delta_x;
+	f32 jostle_delta_z;
+	char pad0100[0x618 - 0x100];
 	u8 port;
 	char pad0619[0x620 - 0x619];
 	PlayerInput input;
@@ -129,7 +151,10 @@ struct Player {
 	f32 animation_speed;
 	char pad08A0[0x1A88 - 0x8A0];
 	CPUData cpu;
-	char pad1FE0[0x221F - 0x1FE0];
+	char pad1FE0[0x210C - 0x1FE0];
+	u8 walljump_eligible_frames;
+	f32 walljump_direction;
+	char pad2114[0x221F - 0x2114];
 	struct {
 #ifdef PAL
 		u8 flags8_80 : 1;
