@@ -32,7 +32,7 @@ static bool attempt_doraki(Player *player)
 	const auto position = player->position;
 	const auto collide = player->phys.collide;
 	const auto ecb = player->phys.ecb;
-	player->position = as_data->doraki_position;
+	player->position = player->last_position;
 	player->phys.collide = player->phys.last_collide;
 	player->phys.ecb = player->phys.last_ecb;
 
@@ -69,10 +69,6 @@ static void gecko_entry()
 		// Store doraki eligibility for f2
 		as_data->ledgefall = false;
 		as_data->can_doraki = player->walljump_eligible_frames < 0xFE;
-		if (as_data->can_doraki) {
-			as_data->doraki_position = player->position;
-			as_data->doraki_ecb_flags = player->phys.ecb_flags;
-		}
 	}
 
 	GECKO_RETURN(false);
