@@ -53,9 +53,9 @@ start:
 
         mflr    gpr.pic
 
-        // Must be outside deadzone for 1-2f (intending to dash on next frame)
+        // Must be outside deadzone for 1f (intending to dash on next frame)
         lbz     gpr.tmp, Player.input.stick_x_hold_time(gpr.player)
-        cmpwi   gpr.tmp, 2
+        cmpwi   gpr.tmp, 1
         bge     end
 
         // Rim coord check
