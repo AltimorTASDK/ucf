@@ -13,15 +13,6 @@ inline const PADStatus &get_input(int port)
 	return HSD_PadLibData.queue[index].stat[port];
 }
 
-inline bool check_ucf_xsmash(const Player *player)
-{
-	// Tilt intent algorithm designed by tauKhan
-	const auto &prev_input = get_input<-2>(player->port);
-	const auto &current_input = get_input<0>(player->port);
-	const auto delta = current_input.stick.x - prev_input.stick.x;
-	return delta * delta > 75 * 75;
-}
-
 inline int abs_coord_to_int(float x)
 {
 	// Small bias converts Nana coords back to the corresponding Popo coords

@@ -1,7 +1,7 @@
 #include "hsd/gobj.h"
 #include "melee/constants.h"
 #include "melee/player.h"
-#include "util/melee/pad.h"
+#include "ucf/pad_buffer.h"
 
 register HSD_GObj *gobj asm("r30");
 register Player *player asm("r31");
