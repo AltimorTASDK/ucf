@@ -59,15 +59,8 @@ public:
 		return vec_impl(a.foreach(bind_back(std::lerp, t), b.elems()));
 	}
 
-	constexpr vec_impl()
-	{
-		foreach(bind_back(operators::eq, elem_type{}));
-	}
-
-	constexpr vec_impl(const vec_impl &other)
-	{
-		*this = other;
-	}
+	constexpr vec_impl() = default;
+	constexpr vec_impl(const vec_impl &other) = default;
 
 	template<typename ...T, typename = std::enable_if_t<sizeof...(T) == elem_count>>
 	constexpr vec_impl(T ...values)
@@ -134,12 +127,6 @@ public:
 	constexpr T map(auto &&callable) const
 	{
 		return T(foreach(callable));
-	}
-
-	constexpr vec_impl &operator=(const vec_impl &other)
-	{
-		elems() = other.elems();
-		return *this;
 	}
 
 	constexpr vec_impl &operator+=(const vec_impl &other)
