@@ -36,22 +36,11 @@ inline const ucf_pad_entry &get_ucf_pad_buffer(int port)
 		return buffer.entries[(buffer.index + offset) & UCF_PAD_BUFFER_MASK];
 }
 
-// Tilt intent algorithm designed by tauKhan
-constexpr auto UCF_TILT_THRESHOLD_SQR = 75 * 75;
-
 inline bool check_ucf_xsmash(const Player *player)
 {
+	// Tilt intent algorithm designed by tauKhan
 	const auto &prev_input = get_ucf_pad_buffer<-2>(player->port);
 	const auto &current_input = get_ucf_pad_buffer<0>(player->port);
 	const auto delta = current_input.stick.x - prev_input.stick.x;
-	return delta * delta > UCF_TILT_THRESHOLD_SQR;
-}
-
-inline bool check_ucf_sdi(const Player *player)
-{
-	const auto &prev_input = get_ucf_pad_buffer<-2>(player->port);
-	const auto &current_input = get_ucf_pad_buffer<0>(player->port);
-	const auto delta_x = current_input.stick.x - prev_input.stick.x;
-	const auto delta_y = current_input.stick.y - prev_input.stick.y;
-	return delta_x * delta_x + delta_y * delta_y > UCF_TILT_THRESHOLD_SQR;
+	return delta * delta > 75 * 75;
 }

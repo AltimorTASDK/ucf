@@ -4,6 +4,16 @@
 #include "ucf/pad_buffer.h"
 #include "util/powerpc.h"
 
+inline bool check_ucf_sdi(const Player *player)
+{
+	// Tilt intent algorithm designed by tauKhan
+	const auto &prev_input = get_ucf_pad_buffer<-2>(player->port);
+	const auto &current_input = get_ucf_pad_buffer<0>(player->port);
+	const auto delta_x = current_input.stick.x - prev_input.stick.x;
+	const auto delta_y = current_input.stick.y - prev_input.stick.y;
+	return delta_x * delta_x + delta_y * delta_y > 75 * 75;
+}
+
 static bool check_f2_sdi(const Player *player, const PlCo *plco)
 {
 	// Check that the player left the deadzone on the previous frame,
