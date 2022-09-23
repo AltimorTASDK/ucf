@@ -24,5 +24,4 @@ static void gecko_entry()
 	FORCE_WRITE(stick_x_neutral_time);
 }
 
-GECKO_NO_STACK_FRAME();
 GECKO_INIT_PIC(UCF_PAD_BUFFER_INJECTION, gecko_entry, "r28");
