@@ -10,7 +10,7 @@ inline bool check_ucf_shield_sdi(const Player *player)
 	const auto &prev_input = get_ucf_pad_buffer<-2>(player->port);
 	const auto &current_input = get_ucf_pad_buffer<0>(player->port);
 	const auto delta = current_input.stick.x - prev_input.stick.x;
-	return delta * delta > 75 * 75;
+	return delta * delta > 62 * 62;
 }
 
 static bool check_f2_sdi(const Player *player, const PlCo *plco)
