@@ -156,7 +156,7 @@ struct Player {
 	f32 walljump_direction;
 	char pad2114[0x221F - 0x2114];
 	struct {
-#ifdef PAL
+#if REVISION == 'PAL'
 		u8 flags8_80 : 1;
 		u8 flags8_40 : 1;
 		u8 flags8_20 : 1;
