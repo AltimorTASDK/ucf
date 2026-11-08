@@ -35,7 +35,7 @@ static bool check_sdrop_up(const auto &buffer, const PlayerInput &input)
 	return input.stick_y_hold_time < 2 && check_ucf_sdrop(buffer);
 }
 
-[[gnu::noinline]] static void apply_cardinals(const vec2c &raw_stick, vec2 *stick)
+[[gnu::noinline]] static void apply_cardinals(const vec2c &raw_stick, vec2 *stick, int magnitude_bits)
 {
 	// Produce 1.0 cardinals when one axis is >= 80 and
 	// the other is within [-SNAP_RANGE, SNAP_RANGE]
@@ -45,9 +45,9 @@ static bool check_sdrop_up(const auto &buffer, const PlayerInput &input)
 	const auto raw_y = raw_stick.y;
 
 	if ((raw_x <= -80 || raw_x >= 80) && raw_y >= -SNAP_RANGE && raw_y <= SNAP_RANGE)
-		*(vec2i*)stick = {std::bit_cast<int>(1.f) ^ (std::signbit(raw_stick.x) << 31), 0};
+		*(vec2i*)stick = {magnitude_bits ^ (std::signbit(raw_x) << 31), 0};
 	else if ((raw_y <= -80 || raw_y >= 80) && raw_x >= -SNAP_RANGE && raw_x <= SNAP_RANGE)
-		*(vec2i*)stick = {0, std::bit_cast<int>(1.f) ^ (std::signbit(raw_stick.y) << 31)};
+		*(vec2i*)stick = {0, magnitude_bits ^ (std::signbit(raw_y) << 31)};
 }
 
 static bool should_apply_cardinals(const Player *player)
@@ -70,10 +70,11 @@ static void gecko_entry()
 		buffer->index = (buffer->index + 1) & UCF_PAD_BUFFER_MASK;
 		buffer->entries[buffer->index].stick = status.stick;
 
-		if (should_apply_cardinals(player)) {
-			apply_cardinals(status.stick, &player->input.stick);
-			apply_cardinals(status.cstick, &player->input.cstick);
-		}
+		const bool use_full_cardinal_magnitude = should_apply_cardinals(player);
+		apply_cardinals(status.stick, &player->input.stick, use_full_cardinal_magnitude ? std::bit_cast<int>(1.f) : std::bit_cast<int>(0.9875f));
+		// Only snap C-stick input when not zeroed by single-player mode processing
+		if (!FP_EQUAL(player->input.cstick.x, 0.f) || !FP_EQUAL(player->input.cstick.y, 0.f))
+			apply_cardinals(status.cstick, &player->input.cstick, std::bit_cast<int>(1.f));
 
 		if (check_sdrop_up(*buffer, player->input))
 			buffer->sdrop_up_frames++;

@@ -23,7 +23,7 @@ static bool check_f2_sdi(const Player *player, const PlCo *plco)
 	// Check previous input to disallow buffering, and check for UCF 1f smash input
 	const auto last_x = player->input.last_stick.x;
 	const auto threshold = plco->sdi_stick_threshold;
-	return last_x < threshold && check_ucf_shield_sdi(player);
+	return std::abs(last_x) < threshold && check_ucf_shield_sdi(player);
 }
 
 static void gecko_entry()
